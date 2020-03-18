@@ -1,0 +1,32 @@
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.matTable {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.matCard {
+  width: 90%;
+  margin: 15px auto;
+  padding: 15px 0;
+
+  display: flex;
+  align-items: center;
+}
+
+.matCard button {
+  width: 150px;
+  margin: 10px 15px;
+}
+
+.noProducts {
+  width: 50%;
+  height: auto;
+  margin: 100px auto;
+}
+
+.totalCart {
+  margin: 10px 20px 10px auto !important;
+}

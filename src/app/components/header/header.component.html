@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  <mat-icon>playlist_add_check</mat-icon>
+  Angular Testing
+
+  <span class="spacer"></span>
+
+  <button mat-raised-button color="accent" routerLink="/products" class="menuButton">
+    <mat-icon>category</mat-icon>
+    <span>Products</span>
+  </button>
+
+  <button mat-raised-button color="accent" routerLink="/cart" class="menuButton">
+    <mat-icon>add_shopping_cart</mat-icon>
+    <span id="cart">Cart ({{productsQuantity}})</span>
+  </button>
+
+</mat-toolbar>

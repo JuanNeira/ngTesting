@@ -1,0 +1,30 @@
+.detailsCard {
+  width: 50%;
+  margin: 50px auto;
+  display: flex;
+  position: relative;
+}
+
+.imgCard {
+  width: 40%;
+  height: auto;
+  margin: auto;
+}
+
+.bodyCard {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.position-relative {
+  position: relative !important;
+  margin-bottom: 15px !important;
+}

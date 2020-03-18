@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container {
+  width: 100vw;
+  height: calc(100vh - 64px);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.menuButton {
+  margin: auto 15px !important;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.titleSpacer {
+  margin-left: 5%;
+}
+
+.productsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cardContainer {
+  width: 200px;
+  height: 300px;
+  margin: 15px;
+}
+
+.responsiveImg {
+  width: 90%;
+  height: auto;
+  margin: 15px 5%;
+}

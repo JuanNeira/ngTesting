@@ -1,0 +1,69 @@
+<app-header></app-header>
+
+<div class="container">
+  <h1 class="headline titleSpacer">Selected Products</h1>
+
+  <ng-container *ngIf="dataSourceProducts.length > 0; else noProducts">
+    <table mat-table [dataSource]="dataSourceProducts" class="mat-elevation-z2 matTable">
+
+      <ng-container matColumnDef="Product">
+        <th mat-header-cell *matHeaderCellDef> Product </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Quantity">
+        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Options">
+        <th mat-header-cell *matHeaderCellDef> Options </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" matTooltip="Add" matTooltipPosition="before"
+            (click)="productEmitter(element, 'add')">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" matTooltip="Delete" matTooltipPosition="before"
+            (click)="productEmitter(element, 'delete')">
+            <mat-icon>remove_circle_outline</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" matTooltip="Clear all" matTooltipPosition="before"
+            (click)="productEmitter(element, 'deleteAll')">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Total">
+        <th mat-header-cell *matHeaderCellDef> Total </th>
+        <td mat-cell *matCellDef="let element">
+          <span>{{ element.totalPrice | toClpPipe }}</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-card class="mat-elevation-z2 matCard">
+      <button mat-raised-button color="warn" matTooltip="Clear all" matTooltipPosition="before">
+        <mat-icon>shopping_cart</mat-icon>
+        M'kay
+      </button>
+      <button mat-stroked-button color="warn" matTooltip="Clear all" matTooltipPosition="before">
+        <mat-icon>remove_shopping_cart</mat-icon>
+        Delete Cart
+      </button>
+      <h2 class="totalCart">Total cart price: {{totalCartPrice | toClpPipe}}</h2>
+    </mat-card>
+  </ng-container>
+
+  <ng-template #noProducts>
+    <img src="/assets/images/no-product.png" alt="no-product" class="noProducts">
+  </ng-template>
+</div>
