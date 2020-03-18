@@ -23,3 +23,7 @@
 .cardActions:last-child {
   margin-right: 5px;
 }
+
+.title {
+  cursor: pointer;
+}

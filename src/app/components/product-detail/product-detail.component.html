@@ -9,14 +9,15 @@
 
     <div class="bodyCard">
       <div class="headerCard">
-        <h4>Nombre</h4>
-        <button mat-button matTooltip="Go back">
+        <h4>{{prodInfo.name}}</h4>
+        <button mat-button matTooltip="Go back" (click)="goBack()">
           <mat-icon>clear</mat-icon>
         </button>
       </div>
 
       <mat-divider class="position-relative"></mat-divider>
-      <span>Description description description descriptiondescription </span>
+      <span>{{prodInfo.description}}</span>
+      <span class="price">{{prodInfo.price | toClpPipe}}</span>
     </div>
 
   </mat-card>

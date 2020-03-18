@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
@@ -11,21 +12,27 @@ export class ProductCardComponent implements OnInit {
   @ViewChild('productPrice') productPrice: ElementRef;
   isNotClickable: boolean = true;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     this.setIsClickable();
   }
 
-  productEmitter(type: string) {
+  productEmitter(type: string): void {
     const product = { ...this.prodInfo, type };
     this.productToCart.emit(product);
   }
 
-  setIsClickable() {
+  setIsClickable(): void {
     setTimeout(() => {
       const text = this.productPrice.nativeElement.innerText;
       this.isNotClickable = text === 'Price: N/A';
     }, 0.5);
+  }
+
+  goDetails(product): void {
+    this.router.navigate([`/products/${product.code}`, { ...product }]);
   }
 }

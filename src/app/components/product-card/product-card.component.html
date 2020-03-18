@@ -1,6 +1,6 @@
 <mat-card class="cardContainer">
   <mat-card-header>
-    <mat-card-title>Product {{ prodInfo.name }}</mat-card-title>
+    <mat-card-title class="title" (click)="goDetails(prodInfo)">Product {{ prodInfo.name }}</mat-card-title>
     <mat-card-subtitle>Code {{ prodInfo.code }}</mat-card-subtitle>
   </mat-card-header>
 
