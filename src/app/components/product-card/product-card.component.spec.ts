@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -18,6 +18,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router, Routes } from '@angular/router';
+import { Location } from '@angular/common';
+
 /* Components */
 import { ProductCardComponent } from './product-card.component';
 import { ToClpPipe } from '../../pipes/to-clp.pipe';
@@ -25,6 +29,14 @@ import { PriceColorDirective } from '../../directives/price-color.directive';
 
 /* Mocks */
 import { productMock } from '../../mocks/mock-data/product-mock';
+
+const routes: Routes = [
+  /* { path: 'products', component: ProductListComponent },
+  { path: 'products/:code', component: ProductDetailComponent },
+  { path: 'cart', component: ShoppingCartComponent }, */
+  { path: '', redirectTo: 'products', pathMatch: 'full' },
+  { path: '**', redirectTo: 'products', pathMatch: 'full' },
+];
 
 describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
@@ -34,6 +46,9 @@ describe('ProductCardComponent', () => {
   let addBtnDE: DebugElement;
   let deleteBtnDE: DebugElement;
 
+  let router: Router;
+  let location: Location;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -42,6 +57,7 @@ describe('ProductCardComponent', () => {
         PriceColorDirective,
       ],
       imports: [
+        RouterTestingModule.withRoutes(routes),
         MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatDividerModule,
         MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatProgressBarModule,
         MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatToolbarModule,
@@ -55,6 +71,9 @@ describe('ProductCardComponent', () => {
     component = fixture.componentInstance;
     component.prodInfo = productMock; // This input info is needed to initialize the component
 
+    router = fixture.debugElement.injector.get(Router);
+    location = fixture.debugElement.injector.get(Location);
+
     // Gets the html (span) element by id
     spanDE = fixture.debugElement.query(By.css('#productPrice'));
     spanEL = spanDE.nativeElement;
@@ -64,6 +83,11 @@ describe('ProductCardComponent', () => {
 
   it('TEST 0: create a component instance', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('TEST 0b: create a router instance', () => {
+    expect(router).toBeTruthy();
+    expect(location).toBeTruthy();
   });
 
   it('TEST 1: Should call setIsClickable onInit', () => {
@@ -126,4 +150,11 @@ describe('ProductCardComponent', () => {
     }, 1);
     expect(spyClickable).toHaveBeenCalled();
   });
+
+  it('TEST 7: Should redirect to details', fakeAsync(() => {
+    router.navigate(['/products/1']).then(() => {
+      console.log(location.path());
+      expect(location.path()).toEqual('/products/1');
+    });
+  }));
 });

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
@@ -14,6 +16,7 @@ export class ProductCardComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private location: Location,
   ) { }
 
   ngOnInit() {
@@ -33,6 +36,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   goDetails(product): void {
-    this.router.navigate([`/products/${product.code}`, { ...product }]);
+    const url = `/products/${product.code}`;
+    this.router.navigate([url, { ...product }]);
   }
 }
