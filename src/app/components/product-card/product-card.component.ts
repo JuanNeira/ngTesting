@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class ProductCardComponent implements OnInit {
   @Input() prodInfo;
   @Output() productToCart = new EventEmitter<any>();
-  @ViewChild('productPrice') productPrice: ElementRef;
+  @ViewChild('productPrice', { static: true }) productPrice: ElementRef;
   isNotClickable: boolean = true;
 
   constructor(
