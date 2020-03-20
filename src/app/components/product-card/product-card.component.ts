@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { Location } from '@angular/common';
 
 @Component({

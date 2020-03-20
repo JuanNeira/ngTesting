@@ -1,6 +1,10 @@
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router, Routes } from '@angular/router';
+import { Location } from '@angular/common';
 
 /* Angular Material Declarations */
 import { MatButtonModule } from '@angular/material/button';
@@ -18,10 +22,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router, Routes } from '@angular/router';
-import { Location } from '@angular/common';
-
 /* Components */
 import { ProductCardComponent } from './product-card.component';
 import { ToClpPipe } from '../../pipes/to-clp.pipe';
@@ -29,11 +29,12 @@ import { PriceColorDirective } from '../../directives/price-color.directive';
 
 /* Mocks */
 import { productMock } from '../../mocks/mock-data/product-mock';
+import { MockProductListComponent } from '../../mocks/mock-components/product-list.mock';
+import { MockProductDetailComponent } from '../../mocks/mock-components/product-detail.mock';
 
 const routes: Routes = [
-  /* { path: 'products', component: ProductListComponent },
-  { path: 'products/:code', component: ProductDetailComponent },
-  { path: 'cart', component: ShoppingCartComponent }, */
+  { path: 'products', component: MockProductListComponent },
+  { path: 'products/:code', component: MockProductDetailComponent },
   { path: '', redirectTo: 'products', pathMatch: 'full' },
   { path: '**', redirectTo: 'products', pathMatch: 'full' },
 ];
@@ -52,7 +53,9 @@ describe('ProductCardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
+        MockProductListComponent,
         ProductCardComponent,
+        MockProductDetailComponent,
         ToClpPipe,
         PriceColorDirective,
       ],
@@ -68,7 +71,7 @@ describe('ProductCardComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductCardComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
     component.prodInfo = productMock; // This input info is needed to initialize the component
 
     router = fixture.debugElement.injector.get(Router);
@@ -81,11 +84,11 @@ describe('ProductCardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('TEST 0: create a component instance', () => {
+  it('TEST 0a: create a component instance', () => {
     expect(component).toBeTruthy();
   });
 
-  it('TEST 0b: create a router instance', () => {
+  it('TEST 0b: create a router and location instance', () => {
     expect(router).toBeTruthy();
     expect(location).toBeTruthy();
   });
@@ -151,10 +154,17 @@ describe('ProductCardComponent', () => {
     expect(spyClickable).toHaveBeenCalled();
   });
 
-  it('TEST 7: Should redirect to details', fakeAsync(() => {
-    router.navigate(['/products/1']).then(() => {
-      console.log(location.path());
-      expect(location.path()).toEqual('/products/1');
+  it('TEST 7: Should call goDetails method', () => {
+    const spyDetails = spyOn(component, 'goDetails');
+
+    component.goDetails(productMock);
+    fixture.detectChanges();
+    expect(spyDetails).toHaveBeenCalled();
+  });
+
+  it('TEST 8: Should redirect to details', () => {
+    router.navigate([`/products/${productMock.code}`]).then(() => {
+      expect(location.path()).toEqual(`/products/${productMock.code}`);
     });
-  }));
+  });
 });
