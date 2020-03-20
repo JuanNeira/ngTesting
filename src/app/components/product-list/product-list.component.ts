@@ -33,9 +33,11 @@ export class ProductListComponent implements OnInit {
     //   localStorage.setItem('products-list', JSON.stringify([]));
 
     if (productList !== null) {
-      this.products = JSON.parse(localStorage.getItem('products-list'));
+      this.products = productList;
     } else {
-      localStorage.setItem('products-list', JSON.stringify([]));
+      this.productsService.getData().subscribe(res => {
+        localStorage.setItem('products-list', JSON.stringify(res));
+      });
     }
   }
 }
