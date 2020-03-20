@@ -57,7 +57,7 @@ describe('ShoppingCartComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ShoppingCartComponent);
     service = fixture.debugElement.injector.get(ProductsService);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
     fixture.detectChanges();
   });
 

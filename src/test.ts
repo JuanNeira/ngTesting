@@ -18,7 +18,3 @@ getTestBed().initTestEnvironment(
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
-
-
-// crear requisitos para la capacitacion
-// crear ppt presentacion

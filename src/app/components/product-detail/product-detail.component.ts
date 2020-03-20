@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-// import { Location } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,7 +13,7 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    // private location: Location,
+    private location: Location,
   ) { }
 
   ngOnInit() {
@@ -26,7 +25,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/products']);
-    // this.location.back();
+    this.location.back();
   }
 }
